@@ -1,10 +1,10 @@
-apiVersion: apps/v1
+ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: linkding
   name: linkding
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: linkding
@@ -13,10 +13,10 @@ spec:
       labels:
         app: linkding
     spec:
-      securityContext:
-        fsGroup: 33 # www-data group ID
-        runAsUser: 33 # www-data user ID
-        runAsGroup: 33 # www-data group ID
+#      securityContext:
+#        fsGroup: 33 # www-data group ID
+#        runAsUser: 33 # www-data user ID
+#        runAsGroup: 33 # www-data group ID
 
       containers:
         - name: linkding
@@ -24,19 +24,19 @@ spec:
           ports:
             - containerPort: 9090
 
-          envFrom:
+#          envFrom:
             # - configMapRef:
             #   name: linkding-configmap
-            - secretRef:
-                name: linkding-container-env
+#            - secretRef:
+#                name: linkding-container-env
 
-          securityContext:
-            allowPrivilegeEscalation: false
+#          securityContext:
+#            allowPrivilegeEscalation: false
 
-          volumeMounts:
-            - name: linkding-data
-              mountPath: /etc/linkding/data
-      volumes:
-        - name: linkding-data
-          persistentVolumeClaim:
-            claimName: linkding-data-pvc
+#          volumeMounts:
+#            - name: linkding-data
+#              mountPath: /etc/linkding/data
+#      volumes:
+#        - name: linkding-data
+#          persistentVolumeClaim:
+#            claimName: linkding-data-pvc
